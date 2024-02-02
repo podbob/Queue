@@ -1,0 +1,33 @@
+from queue import Queue
+
+class MyStack:
+    def __init__(self):
+        self.main_queue = Queue()
+        self.temp_queue = Queue()
+
+    def push(self, x):
+
+        while not self.main_queue.empty():
+            self.temp_queue.put(self.main_queue.get())
+
+        self.main_queue.put(x)
+
+        while not self.temp_queue.empty():
+            self.main_queue.put(self.temp_queue.get())
+
+    def pop(self):
+        return self.main_queue.get()
+
+    def top(self):
+        return self.main_queue.queue[0]
+
+    def empty(self):
+        return self.main_queue.empty()
+
+# Приклад використання
+my_stack = MyStack()
+my_stack.push(1)
+my_stack.push(2)
+print(my_stack.top())   # Виведе: 2
+print(my_stack.pop())   # Виведе: 2
+print(my_stack.empty()) # Виведе: False
